@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataBase\SQLFactura.sql" />
     <Content Include="Global.asax" />
     <Content Include="Images\icon.png" />
     <Content Include="Styles\FacturaStyle.css" />
@@ -99,7 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DataBase\" />
     <Folder Include="Models\" />
     <Folder Include="Styles\NewFolder1\" />
   </ItemGroup>
