@@ -157,11 +157,21 @@ namespace MantFacturas.Views
                 int idFactura; // Variable para almacenar el ID de la factura creada o actualizada, que se usará para recargar los datos y mostrar el reporte consolidado después de guardar
                 bool esNotaCreditoGenerada = false;
 
-                // LÓGICA DE NOTA DE CRÉDITO: Si todos los items están inactivos, agregamos uno automático para mantener la factura válida
-                if (!DetalleTemp.Any(d => d.Estado == "A"))
+                // LÓGICA DE NOTA DE CRÉDITO
+                bool hayActivos = DetalleTemp.Any(d => d.Estado == "A");
+                bool hayInactivos = DetalleTemp.Any(d => d.Estado == "I");
+
+                if (!hayActivos)
                 {
+                    // Si no hay activos pero tampoco hay inactivos → no hay items
+                    if (!hayInactivos)
+                        throw new Exception("La factura debe tener al menos un item.");
+
+                    // Si hay inactivos → generar Nota de Crédito
                     esNotaCreditoGenerada = true;
+
                     string idRef = string.IsNullOrEmpty(hfIDFactura.Value) ? "(Nueva)" : hfIDFactura.Value;
+
                     DetalleTemp.Add(new DetalleFacturaClass
                     {
                         IDDetalle = 0,

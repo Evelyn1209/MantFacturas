@@ -99,25 +99,46 @@
                                     <asp:TextBox ID="txtDetalleCantidad" runat="server" TextMode="Number" min="1"></asp:TextBox>
                                     <%-- Verifica que el campo no esté vacío. Si esta vacio envia mensaje de error --%>
                                     <asp:RequiredFieldValidator ID="rfvCant" runat="server" ControlToValidate="txtDetalleCantidad" 
-                                        ErrorMessage="La cantidad es obligatoria" ForeColor="Red" Display="Dynamic" ValidationGroup="AddDetalle" />
+                                        ErrorMessage="La cantidad es obligatoria" ForeColor="Black" Display="Dynamic" ValidationGroup="AddDetalle" />
                                     <%-- Se usa para validar valores numéricos.la cantidad debe ser mayor a 0.--%>
                                     <asp:CompareValidator ID="cvCant" runat="server" ControlToValidate="txtDetalleCantidad" Operator="GreaterThan" ValueToCompare="0" Type="Integer"
                                         ErrorMessage="Debe ser mayor a 0" ForeColor="Black" Display="Dynamic" ValidationGroup="AddDetalle" />
                                 </div>
                                 <div style="flex: 0.5;">
-                                    <label>Precio Unit:</label>
-                                    <asp:TextBox ID="txtDetallePrecio" runat="server" placeholder="0.00"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvPrecio" runat="server" ControlToValidate="txtDetallePrecio" 
-                                        ErrorMessage="El precio es obligatorio" ForeColor="Black" Display="Dynamic" ValidationGroup="AddDetalle" />
-<asp:CompareValidator ID="cvPrecio" runat="server"
-ControlToValidate="txtDetallePrecio"
-Operator="GreaterThan"
-ValueToCompare="0"
-Type="Double"
-ErrorMessage="El precio debe ser mayor a 0"
-ForeColor="Black"
-Display="Dynamic"
-ValidationGroup="AddDetalle" />                                </div>
+                             <label>Precio Unit:</label>
+
+<asp:TextBox ID="txtDetallePrecio" runat="server" placeholder="0.00"></asp:TextBox>
+
+<asp:RequiredFieldValidator 
+    ID="rfvPrecio" 
+    runat="server" 
+    ControlToValidate="txtDetallePrecio"
+    ErrorMessage="El precio es obligatorio"
+    ForeColor="Black"
+    Display="Dynamic"
+    ValidationGroup="AddDetalle" />
+
+<asp:RegularExpressionValidator 
+    ID="revPrecio"
+    runat="server"
+    ControlToValidate="txtDetallePrecio"
+    ValidationExpression="^\d+(\.\d{1,2})?$"
+    ErrorMessage="Ingrese solo números (ej: 10 o 10.50)"
+    ForeColor="Black"
+    Display="Dynamic"
+    ValidationGroup="AddDetalle" />
+
+<asp:CompareValidator 
+    ID="cvPrecio"
+    runat="server"
+    ControlToValidate="txtDetallePrecio"
+    Operator="GreaterThan"
+    ValueToCompare="0"
+    Type="Double"
+    ErrorMessage="El precio debe ser mayor a 0"
+    ForeColor="Black"
+    Display="Dynamic"
+    ValidationGroup="AddDetalle" />                            </div>
                                 <div style="flex: 1; align-self: flex-end;">
                                     <%-- Boton, se jecuta en C#:--%>
                                     <asp:Button ID="btnAddDetalle" runat="server" Text="Agregar Item" OnClick="btnAddDetalle_Click" CssClass="asp-button" Style="width:100%; margin-bottom:10px;" ValidationGroup="AddDetalle" /> 
